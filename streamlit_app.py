@@ -3,7 +3,7 @@ import pandas as pd
 import requests
 
 # Título do app
-st.title("Geocodificação com Geoapify")
+st.title("Geocodificação com Geoapify - Clube do GIS")
 
 # Entrada para a chave de API
 api_key = st.text_input("Insira sua chave de API Geoapify:", type="password")
