@@ -32,14 +32,15 @@ if uploaded_file and api_key:
     # Dropdown para selecionar a coluna de endereços
     address_column = st.selectbox("Selecione a coluna que contém os endereços:", df.columns)
     
-    # Campo para definir o intervalo de linhas a serem geocodificadas
+    # Campos para definir o intervalo de linhas a serem geocodificadas
     max_rows = len(df)
-    row_limit = st.number_input("Número de linhas a geocodificar:", min_value=1, max_value=max_rows, value=max_rows)
+    start_row = st.number_input("Linha inicial (começando do 0):", min_value=0, max_value=max_rows-1, value=0)
+    end_row = st.number_input("Linha final:", min_value=start_row+1, max_value=max_rows, value=max_rows)
     
     # Botão para iniciar a geocodificação
     if st.button("Iniciar Geocodificação"):
-        # Filtra as linhas conforme o valor definido
-        df_filtered = df.iloc[:row_limit]
+        # Filtra as linhas conforme o intervalo definido
+        df_filtered = df.iloc[start_row:end_row]
         
         # Aplica a geocodificação
         st.write("Geocodificando os endereços...")
