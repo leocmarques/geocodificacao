@@ -25,16 +25,21 @@ if uploaded_file and api_key:
     # Leitura do arquivo Excel
     df = pd.read_excel(uploaded_file)
     
-    # Exibe a tabela inicial
-    st.write("Primeiras linhas do arquivo carregado:")
-    st.write(df.head())
+    # Exibe as primeiras 20 linhas da planilha
+    st.write("Primeiras 20 linhas do arquivo carregado:")
+    st.write(df.head(20))
     
     # Dropdown para selecionar a coluna de endereços
     address_column = st.selectbox("Selecione a coluna que contém os endereços:", df.columns)
     
-    if address_column:
-        # Filtra as primeiras 10 linhas como exemplo
-        df_filtered = df.iloc[0:10]
+    # Campo para definir o intervalo de linhas a serem geocodificadas
+    max_rows = len(df)
+    row_limit = st.number_input("Número de linhas a geocodificar:", min_value=1, max_value=max_rows, value=max_rows)
+    
+    # Botão para iniciar a geocodificação
+    if st.button("Iniciar Geocodificação"):
+        # Filtra as linhas conforme o valor definido
+        df_filtered = df.iloc[:row_limit]
         
         # Aplica a geocodificação
         st.write("Geocodificando os endereços...")
